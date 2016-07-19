@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<parameters>
+	<module name="memcache" desc="memcache 连接配置">
+		<parameter name="servers">10.10.10.87:11211,10.10.35.15:11211
+		</parameter>
+		<parameter name="weights">3,3</parameter>
+		<parameter name="initConn">10</parameter><!-- 初始连接数 -->
+		<parameter name="minConn">10</parameter><!-- 最小连接数 -->
+		<parameter name="maxConn">1000</parameter><!-- 最大连接数 -->
+		<parameter name="maxIdle">3600000</parameter><!-- 最大空闲时间 -->
+		<parameter name="maintSleep">60</parameter><!-- 连接池守护线程的睡眠时间 -->
+		<parameter name="socketTO">60</parameter>
+		<parameter name="socketConnectTO">0</parameter>
+	</module>
+
+	<module name="appid_siteId" desc="appid、siteId对应关系">
+		<parameter name="hdtv">3</parameter>
+		<parameter name="mijia">13</parameter>
+		<parameter name="mobisode">11</parameter>
+		<parameter name="mobicomic">12</parameter>
+		<parameter name="hdedu">14</parameter>
+		<parameter name="movie">15</parameter>
+		<parameter name="jinhaian">16</parameter>
+		<parameter name="CIBNLiveShow">7</parameter>
+	</module>
+</parameters>
