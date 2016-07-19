@@ -1,0 +1,130 @@
+<html>  
+<head>  
+<title>xxxxx</title>  
+<meta http-equiv="content-type" content="text/html; charset=utf8">  
+  
+</head>  
+<body>  
+<SCRIPT LANGUAGE="JavaScript">  
+
+/**
+* 腾讯地图坐标转百度地图坐标
+* @param [String] $lat 腾讯地图坐标的纬度
+* @param [String] $lng 腾讯地图坐标的经度
+* @return [Array] 返回记录纬度经度的数组
+*/
+function Convert_GCJ02_To_BD09($lat,$lng){
+	$x_pi = 3.14159265358979324 * 3000.0 / 180.0;
+	$x = $lng;
+	$y = $lat;
+	$z =Math.sqrt($x * $x + $y * $y) + 0.00002 * Math.sin($y * $x_pi);
+	$theta = Math.atan2($y, $x) + 0.000003 * Math.cos($x * $x_pi);
+	var $lng1 = $z * Math.cos($theta) + 0.0065;
+	var $lat1 = $z * Math.sin($theta) + 0.006;
+	var arrayObj = new Array();
+	arrayObj[0] = $lng1;
+	arrayObj[1] = $lat1;
+	
+	return arrayObj;
+}
+//百度地图坐标计算
+function rad($d) 
+
+{ 
+
+return $d * 3.1415926535898 / 180.0; 
+
+} 
+
+ 
+
+/**
+* 腾讯地图坐标转百度地图坐标
+* @param [String] $lat1 A点的纬度
+28.
+* @param [String] $lng1 A点的经度
+29.
+* @param [String] $lat2 B点的纬度
+30.
+* @param [String] $lng2 B点的经度
+31.
+* @return [String] 两点坐标间的距离，输出单位为米
+32.
+*/
+function GetDistance($lat1, $lng1, $lat2, $lng2) 
+{ 
+$EARTH_RADIUS = 6378.137;//地球的半径
+$radLat1 = rad($lat1);  
+$radLat2 = rad($lat2); 
+$a = $radLat1 - $radLat2; 
+$b = rad($lng1) - rad($lng2); 
+$s = 2 * Math.asin(Math.sqrt(Math.pow(Math.sin($a/2),2) + 
+Math.cos($radLat1)*Math.cos($radLat2)*Math.pow(Math.sin($b/2),2))); 
+$s = $s *$EARTH_RADIUS; 
+$s = Math.round($s * 10000) / 10000;
+$s=$s*1000;
+return Math.ceil($s); 
+} 
+/**
+49.
+* 标记大概的距离，做出友好的距离提示
+50.
+* @param [$number] 距离数量
+51.
+* @return[String] 距离提示
+52.
+*/
+function mToKm($number){
+//if(!is_numeric($number)) return ' ';
+switch ($number){
+case $number>1800&&$number<=2000:
+$v='2';
+break;
+case $number>1500&&$number<=1800:
+$v='1.8';
+break;
+case $number>1200&&$number<=1500:
+$v='1.5';
+break;
+case $number>1000&&$number<=1200:
+$v='1.2';
+break;
+case $number>900&&$number<=1000:
+$v='1';
+break;
+default:
+$v=Math.ceil($number/100)*100;
+break;
+}
+if($v<100){
+$v= '距离我'+$v+'千米内。';}
+else{
+$v= '距离我'+$v+'米内。';
+}
+return $v;
+}
+var $location1 = new Array();
+$location1[0] = 39.93294;
+$location1[1] = 116.30321;
+var $location2 = new Array();
+$location2[0] = 104.102209;
+$location2[1] = 30.647363;
+
+//$location1=explode(',','30.625011,104.072701');//腾讯地图坐标
+$location1==Convert_GCJ02_To_BD09($location1[0],$location1[1]);//转换腾讯坐标到百度坐标
+//$location2=explode(',','104.102209,30.647363');
+$distance=GetDistance($location2[0],$location2[1],$location1[0],$location1[1]);//得出距离
+$distance=mToKm($x);//对距离个性化转换处理
+alert($location1[0] + "  " + $location1[1]);
+alert($distance);
+
+</SCRIPT>  
+  
+    经度：<input type="text" id="lat"><br/>  
+    纬度：<input type="text" id="long"><br/>  
+    城市：<input type="text" id="city"><br/>  
+    国家代码：<input type="text" id="code"><br/>  
+    城市所属地区：<input type="text" id="region"><br/>  
+    国家：<input type="text" id="country"><br/>  
+</body>  
+</html>  

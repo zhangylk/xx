@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <title>我的</title>
+
+    <!-- Bootstrap -->
+    <link href="bootstrap/css/normalize.css" rel="stylesheet">
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="bootstrap/css/font-awesome.min.css" rel="stylesheet">
+    <link href="bootstrap/css/font.css" rel="stylesheet">
+    <link href="bootstrap/css/style.css" rel="stylesheet">
+    <link href="bootstrap/css/plugin.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="//cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+	
+<style>
+.content-main{
+}
+</style>
+</head>
+<body style="">
+	<div class="content-main">
+          <section class="panel">
+            <div class="panel-body">
+              <form class="form-horizontal" method="get" data-validate="parsley">      
+                <div class="form-group">
+                  <label class="col-lg-3 control-label">Photo</label>
+                  <div class="col-lg-9 media">
+                    <div class="bg-light pull-left text-center media-large thumb-large" style="margin-right:10px;padding-right:0;"><i class="fa fa-user inline fa fa-light fa fa-3x m-t-large m-b-large"></i></div>
+                    <div class="media-body">
+                      <input type="file" name="file" title="Change" class="btn btn-sm btn-info m-b-small"><br>
+                      <button class="btn btn-sm btn-default">Delete</button>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-lg-3 control-label">Email</label>
+                  <div class="col-lg-8">
+                    <input type="text" name="email" placeholder="test@example.com" class="bg-focus form-control" data-required="true" data-type="email">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-lg-3 control-label">Password</label>
+                  <div class="col-lg-8">
+                    <input type="password" name="password" placeholder="Password" class="bg-focus form-control">
+                    <div class="line line-dashed m-t-large"></div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-lg-3 control-label">Username</label>
+                  <div class="col-lg-8">
+                    <input type="text" name="username" placeholder="Username" data-required="true" class="form-control">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-lg-3 control-label">Account</label>
+                  <div class="col-lg-4">
+                    <select name="account" class="form-control">
+                      <option value="1">Editor</option>
+                      <option value="0">Admin</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-lg-3 control-label">Registered</label>
+                  <div class="col-lg-9">
+                    <input type="text" class="combodate form-control" data-format="DD-MM-YYYY" data-template="D  MMM  YYYY" name="datetime" value="21-12-2012">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-lg-3 control-label">Profile</label>
+                  <div class="col-lg-8">
+                    <textarea placeholder="Profile" rows="5" class="form-control" data-trigger="keyup" data-rangelength="[20,200]"></textarea>
+                    <div class="checkbox">
+                      <label>
+                        <input name="agree" type="checkbox"> Agree the <a href="#">terms and policy</a>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="col-lg-9 col-lg-offset-3">                      
+                    <button type="submit" class="btn btn-white">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </section>
+
+</div>
+	
+	
+	
+	
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="bootstrap/js/app/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="bootstrap/js/bootstrap.min.js"></script>
+	
+	
+  <!-- app -->
+  <script src="bootstrap/js/app/app.js"></script>
+  <script src="bootstrap/js/app/app.plugin.js"></script>
+  <script src="bootstrap/js/app/app.data.js"></script>
+  <!-- fuelux -->
+  <script src="bootstrap/js/app/fuelux/fuelux.js"></script>
+  <!-- datepicker -->
+  <script src="bootstrap/js/app/datepicker/bootstrap-datepicker.js"></script>
+  <!-- slider -->
+  <script src="bootstrap/js/app/slider/bootstrap-slider.js"></script>
+  <!-- file input -->  
+  <script src="bootstrap/js/app/file-input/bootstrap.file-input.js"></script>
+  <!-- combodate -->
+  <script src="bootstrap/js/app/combodate/moment.min.js"></script>
+  <script src="bootstrap/js/app/combodate/combodate.js"></script>
+  <!-- parsley -->
+  <script src="bootstrap/js/app/parsley/parsley.min.js"></script>
+  <!-- select2 -->
+  <script src="bootstrap/js/app/select2/select2.min.js"></script>
+  </body>
+</html>

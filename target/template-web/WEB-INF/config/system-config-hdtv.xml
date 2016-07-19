@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<parameters>
+	<module name="appConfig" title="app配置" desc="客户端版本号、审核等相关配置" manager="true">
+		<parameter name="version" title="版本号">5.3</parameter>
+		<parameter name="verify" title="审核是否通过">false</parameter>
+		<parameter name="playAd" title="是否播放广告">false</parameter>
+		<parameter name="playAuto" title="是否自动播放下一条">true</parameter>
+		<parameter name="lotteryUrl" title="抽奖地址">http://jifen.cnlive.com/web/cn/luckDraw.html</parameter>
+		<parameter name="channelVersion" title="频道列表版本">1</parameter>
+		<parameter name="videoProbeFreq" title="videoProbeFreq">300:60;10800:600;0:600</parameter>
+		<parameter name="bluetoothRoom" title="打开蓝牙聊天室">true</parameter>
+		<parameter name="useInsider" title="使用会员">true</parameter>
+		<parameter name="extField1" title="扩展属性1"></parameter>
+		<parameter name="extField2" title="扩展属性2"></parameter>
+		<parameter name="extField3" title="扩展属性3"></parameter>
+		<parameter name="extField4" title="扩展属性4"></parameter>
+		<parameter name="extField5" title="扩展属性5"></parameter>
+	</module>
+  	
+</parameters>

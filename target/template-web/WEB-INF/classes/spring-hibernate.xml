@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context-3.2.xsd
+           http://www.springframework.org/schema/aop
+           http://www.springframework.org/schema/aop/spring-aop-3.2.xsd
+           http://www.springframework.org/schema/tx 
+           http://www.springframework.org/schema/tx/spring-tx-3.2.xsd"
+	default-autowire="byName" default-lazy-init="false">
+
+	<!-- <context:property-placeholder location="classpath:jdbc.properties"/> -->
+	<bean
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<value>classpath:jdbc.properties</value>
+			</list>
+		</property>
+	</bean>
+	<!-- <bean id="dataSource_dbcp" destroy-method="close" class="org.apache.commons.dbcp.BasicDataSource"> 
+		<property name="driverClassName" value="${jdbc.driverClassName}" /> <property 
+		name="url" value="${jdbc.url}" /> <property name="username" value="${jdbc.username}" 
+		/> <property name="password" value="${jdbc.password}" /> </bean> -->
+		
+	<!-- <bean id="dataSource_c3p0" destroy-method="close"
+		class="com.mchange.v2.c3p0.ComboPooledDataSource">
+		<property name="driverClass" value="${jdbc.driverClassName}" />
+			<property name="jdbcUrl" value="${jdbc.url}" />
+			<property name="user" value="${jdbc.username}" />
+			<property name="password" value="${jdbc.password}" />
+			连接池中保留的最小连接数
+			<property name="minPoolSize" value="${pool.minPoolSize}"/>
+			连接池中保留的最大连接数。Default: 15
+	        <property name="maxPoolSize" value="${pool.maxPoolSize}"/>
+	        初始化时获取的连接数，取值应在minPoolSize与maxPoolSize之间。Default: 3
+	        <property name="initialPoolSize" value="${pool.initialPoolSize}"/>
+	        最大空闲时间,60秒内未使用则连接被丢弃。若为0则永不丢弃。Default: 0
+	        <property name="maxIdleTime" value="${pool.maxIdleTime}"/>
+	        当连接池中的连接耗尽的时候c3p0一次同时获取的连接数。Default: 3
+	        <property name="acquireIncrement" value="${pool.acquireIncrement}"/>
+	        每60秒检查所有连接池中的空闲连接。Default: 0
+	        <property name="idleConnectionTestPeriod">
+	            <value>${pool.idleConnectionTestPeriod}</value>
+	        </property>
+	        定义在从数据库获取新连接失败后重复尝试的次数。Default: 30
+	        <property name="acquireRetryAttempts">
+	            <value>${pool.acquireRetryAttempts}</value>
+	        </property>
+	        connection提交的时候都将校验其有效性
+	        <property name="testConnectionOnCheckout">
+	            <value>${pool.testConnectionOnCheckout}</value>
+	        </property>
+	</bean> -->
+
+	<!-- 配置数据源 -->
+	<bean name="dataSource_ali" class="com.alibaba.druid.pool.DruidDataSource"
+		init-method="init" destroy-method="close">
+		<property name="url" value="${jdbc.driverClassName}" />
+		<property name="username" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+
+<!-- 		初始化连接大小 -->
+		<property name="initialSize" value="${ali.initialSize}" />
+<!-- 		连接池最大使用连接数量 -->
+		<property name="maxActive" value="${ali.maxActive}" />
+<!-- 		连接池最小空闲 -->
+		<property name="minIdle" value="${ali.minIdle}" />
+<!-- 		获取连接最大等待时间 -->
+		<property name="maxWait" value="${ali.maxWait}" />
+
+		<property name="validationQuery" value="${ali.validationQuery}" />
+		<property name="testOnBorrow" value="${ali.testOnBorrow}" />
+		<property name="testOnReturn" value="${ali.testOnReturn}" />
+		<property name="testWhileIdle" value="${ali.testWhileIdle}" />
+
+<!-- 		配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 -->
+		<property name="timeBetweenEvictionRunsMillis" value="${ali.timeBetweenEvictionRunsMillis}" />
+<!-- 		配置一个连接在池中最小生存的时间，单位是毫秒 -->
+		<property name="minEvictableIdleTimeMillis" value="${ali.minEvictableIdleTimeMillis}" />
+
+<!-- 		打开removeAbandoned功能 -->
+		<property name="removeAbandoned" value="${ali.removeAbandoned}" />
+<!-- 		1800秒，也就是30分钟 -->
+		<property name="removeAbandonedTimeout" value="${ali.removeAbandonedTimeout}" />
+<!-- 		关闭abandoned连接时输出错误日志 -->
+		<property name="logAbandoned" value="${ali.logAbandoned}" />
+<!-- 		监控数据库 -->
+		<property name="filters" value="stat" />
+		<property name="filters" value="${ali.filters}" />
+		<property name="connectionInitSqls" value="${ali.connectionInitSqls}" />
+	</bean>
+
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+		<property name="dataSource" ref="dataSource_ali"></property>
+		<property name="packagesToScan" >
+			<list>
+				<value>com.zhang.weixin.*.entity</value>
+			</list>
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">
+					org.hibernate.dialect.MySQL5InnoDBDialect
+				</prop>
+				<prop key="hibernate.show_sql">false</prop>
+				<prop key="hibernate.hbm2ddl.auto">update</prop>
+				<prop key="format_sql">true</prop>
+				<prop key="hibernate.cache.provider_class">org.hibernate.cache.EhCacheProvider</prop>
+				<prop key="hibernate.cache.use_second_level_cache">true</prop>
+				<prop key="hibernate.cache.use_query_cache">true</prop>
+			</props>
+		</property>
+	</bean>
+	<bean id="hibernateTemplate" class="org.springframework.orm.hibernate3.HibernateTemplate">
+ 		<property name="sessionFactory" ref="sessionFactory"></property>
+ 	</bean>
+
+</beans>

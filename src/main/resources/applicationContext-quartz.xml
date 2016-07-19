@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:task="http://www.springframework.org/schema/task"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/task
+        http://www.springframework.org/schema/task/spring-task.xsd">
+	<!-- 定时器配置 -->
+	<!-- <bean id="scheduler" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name="triggers">
+			<list>
+				<ref bean="category_Program_Trigger"/>
+			</list>
+		</property>
+	</bean> -->
+	
+	<!-- 栏目自动生成节目 -->
+	<!-- <bean id="category_Program_Trigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail" ref="category_Program_jobDetail"></property>
+		<property name="cronExpression">   
+             <value>0 */1 * * * ?</value>   
+         </property> 
+	</bean> -->
+	<!--
+	<bean id="category_Program_Trigger" class="org.springframework.scheduling.quartz.SimpleTriggerFactoryBean">
+		<property name="jobDetail" ref="category_Program_jobDetail"></property>
+		<property name="startDelay" value="3000"></property>
+		<property name="repeatInterval" value="20000"></property>
+	</bean>  -->
+	<!-- <bean id="category_Program_jobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="category_program"></property>
+		<property name="targetMethod" value="executeTask"></property>
+		<property name="concurrent" value="false"></property>
+	</bean>
+	<bean id="category_program" class="com.cnlive.tv5.category.job.CategoryProduceProgram"></bean> -->
+	
+</beans>

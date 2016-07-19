@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context-3.2.xsd
+           http://www.springframework.org/schema/aop
+           http://www.springframework.org/schema/aop/spring-aop-3.2.xsd
+           http://www.springframework.org/schema/tx 
+           http://www.springframework.org/schema/tx/spring-tx-3.2.xsd"
+	default-autowire="byName" default-lazy-init="false">
+
+	<!-- <context:property-placeholder location="classpath:jdbc.properties"/> -->
+	<bean
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<value>classpath:jdbc.properties</value>
+			</list>
+		</property>
+	</bean>
+	<!-- <bean id="dataSource_dbcp" destroy-method="close" class="org.apache.commons.dbcp.BasicDataSource"> 
+		<property name="driverClassName" value="${jdbc.driverClassName}" /> <property 
+		name="url" value="${jdbc.url}" /> <property name="username" value="${jdbc.username}" 
+		/> <property name="password" value="${jdbc.password}" /> </bean> -->
+		
+	<!-- <bean id="dataSource_c3p0" destroy-method="close"
+		class="com.mchange.v2.c3p0.ComboPooledDataSource">
+		<property name="driverClass" value="${jdbc.driverClassName}" />
+			<property name="jdbcUrl" value="${jdbc.url}" />
+			<property name="user" value="${jdbc.username}" />
+			<property name="password" value="${jdbc.password}" />
+			连接池中保留的最小连接数
+			<property name="minPoolSize" value="${pool.minPoolSize}"/>
+			连接池中保留的最大连接数。Default: 15
+	        <property name="maxPoolSize" value="${pool.maxPoolSize}"/>
+	        初始化时获取的连接数，取值应在minPoolSize与maxPoolSize之间。Default: 3
+	        <property name="initialPoolSize" value="${pool.initialPoolSize}"/>
+	        最大空闲时间,60秒内未使用则连接被丢弃。若为0则永不丢弃。Default: 0
+	        <property name="maxIdleTime" value="${pool.maxIdleTime}"/>
+	        当连接池中的连接耗尽的时候c3p0一次同时获取的连接数。Default: 3
+	        <property name="acquireIncrement" value="${pool.acquireIncrement}"/>
+	        每60秒检查所有连接池中的空闲连接。Default: 0
+	        <property name="idleConnectionTestPeriod">
+	            <value>${pool.idleConnectionTestPeriod}</value>
+	        </property>
+	        定义在从数据库获取新连接失败后重复尝试的次数。Default: 30
+	        <property name="acquireRetryAttempts">
+	            <value>${pool.acquireRetryAttempts}</value>
+	        </property>
+	        connection提交的时候都将校验其有效性
+	        <property name="testConnectionOnCheckout">
+	            <value>${pool.testConnectionOnCheckout}</value>
+	        </property>
+	</bean> -->
+	
+	
+	
+	<bean id="dataSource" destroy-method="close" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+			<property name="driverClass" value="${jdbc.driverClassName}" />
+			<property name="jdbcUrl" value="${jdbc.url}" />
+			<property name="user" value="${jdbc.username}" />
+			<property name="password" value="${jdbc.password}" />
+			<!--连接池中保留的最小连接数-->
+			<property name="minPoolSize" value="${pool.minPoolSize}"/>
+			<!--连接池中保留的最大连接数。Default: 15 -->
+	        <property name="maxPoolSize" value="${pool.maxPoolSize}"/>
+	        <!--初始化时获取的连接数，取值应在minPoolSize与maxPoolSize之间。Default: 3 -->
+	        <property name="initialPoolSize" value="${pool.initialPoolSize}"/>
+	        <!--最大空闲时间,60秒内未使用则连接被丢弃。若为0则永不丢弃。Default: 0 -->
+	        <property name="maxIdleTime" value="${pool.maxIdleTime}"/>
+	        <!--当连接池中的连接耗尽的时候c3p0一次同时获取的连接数。Default: 3 -->
+	        <property name="acquireIncrement" value="${pool.acquireIncrement}"/>
+	        <!--每60秒检查所有连接池中的空闲连接。Default: 0 -->
+	        <property name="idleConnectionTestPeriod">
+	            <value>${pool.idleConnectionTestPeriod}</value>
+	        </property>
+	        <!--定义在从数据库获取新连接失败后重复尝试的次数。Default: 30 -->
+	        <property name="acquireRetryAttempts">
+	            <value>${pool.acquireRetryAttempts}</value>
+	        </property>
+	        <!-- connection提交的时候都将校验其有效性 -->
+	        <property name="testConnectionOnCheckout">
+	            <value>${pool.testConnectionOnCheckout}</value>
+	        </property>
+		</bean>
+	
+
+
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"></property>
+		<property name="packagesToScan" >
+			<list>
+				<value>com.zhang.weixin.entity</value>
+			</list>
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">
+					org.hibernate.dialect.MySQL5InnoDBDialect
+				</prop>
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.hbm2ddl.auto">update</prop>
+				<prop key="format_sql">true</prop>
+				<prop key="hibernate.cache.provider_class">org.hibernate.cache.EhCacheProvider</prop>
+				<prop key="hibernate.cache.use_second_level_cache">true</prop>
+				<prop key="hibernate.cache.use_query_cache">true</prop>
+			</props>
+		</property>
+	</bean>
+	<bean id="hibernateTemplate" class="org.springframework.orm.hibernate3.HibernateTemplate">
+ 		<property name="sessionFactory" ref="sessionFactory"></property>
+ 	</bean>
+
+</beans>
